@@ -1,0 +1,35 @@
+{
+  "name": "investments",
+  "version": "1.0.0",
+  "description": "App to check your investments performance",
+  "main": "index.js",
+  "scripts": {
+    "lint": "node_modules/eslint/bin/eslint.js",
+    "test": "add later"
+  },
+  "repository": {
+    "type": "git",
+    "url": "na"
+  },
+  "author": "Marcelo Pinto",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-react": "^7.20.5",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "2.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js, json}": [
+      "eslint",
+      "prettier --write"
+    ]
+  }
+}
