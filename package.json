@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "na"
+    "url": "git+https://github.com/marcelo-vp/investments.git"
   },
   "author": "Marcelo Pinto",
   "license": "ISC",
