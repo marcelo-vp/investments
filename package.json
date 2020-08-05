@@ -4,6 +4,7 @@
   "description": "App to check your investments performance",
   "main": "index.js",
   "scripts": {
+    "dev": "node ./src/backend",
     "lint": "node_modules/eslint/bin/eslint.js",
     "test": "add later"
   },
@@ -31,5 +32,8 @@
       "eslint",
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
