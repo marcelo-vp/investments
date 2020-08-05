@@ -1,1 +1,5 @@
-document.querySelector('#app').textContent = 'Hello JS bundle!!';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const App = () => 'Hello React!!';
+ReactDOM.render(<App />, document.querySelector('#app'));
