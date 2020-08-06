@@ -1,11 +1,19 @@
+import pt from 'date-fns/locale/pt-BR';
+import moment from 'moment';
 import React, { Component } from 'react';
-import { formatResponseDate } from '../../backend/common/helpers';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import Api from '../libs/Api';
+import 'react-datepicker/dist/react-datepicker.css';
+
+registerLocale('pt', pt);
 
 class App extends Component {
     constructor(props) {
         super(props);
         this._unit_value = 1000;
         this.state = {
+            currentDate: new Date(),
+            investmentDate: new Date(),
             records: [],
         };
     }
@@ -18,19 +26,31 @@ class App extends Component {
         const cdbRate = parseFloat(inputNumber.toFixed(1));
         this.setState({ cdbRate });
     };
-    handleInvestmentDate = (e) => {
-        this.setState({
-            investmentDate: formatResponseDate(e.target.value),
-        });
+    handleInvestmentDate = (investmentDate) => {
+        this.setState({ investmentDate });
     };
-    handleCurrentDate = (e) => {
-        this.setState({
-            currentDate: formatResponseDate(e.target.value),
-        });
+    handleCurrentDate = (currentDate) => {
+        this.setState({ currentDate });
+    };
+    _formatPayloadDate = (date) => {
+        return moment(date).format('YYYY-MM-DD');
+    };
+    calculatePerformance = async () => {
+        const payload = {
+            investmentDate: this._formatPayloadDate(this.state.investmentDate),
+            cdbRate: this.state.cdbRate,
+            currentDate: this._formatPayloadDate(this.state.currentDate),
+        };
+        const response = await Api.match('/performance', payload);
+
+        if (!response.data.error_detail) {
+            this.setState({ records: response.data });
+        }
     };
     render() {
         return (
             <div>
+                <h1>Consulte a evolução do seu CDB</h1>
                 <div className='values'>
                     <label htmlFor='initial-amount'>
                         Insira o valor inicial investido (R$):
@@ -53,20 +73,25 @@ class App extends Component {
                     <label htmlFor='investment-date'>
                         Informe a data de investimento:
                     </label>
-                    <input
+                    <DatePicker
                         id='investment-date'
-                        type='text'
+                        locale='pt'
+                        dateFormat='dd/MM/yyyy'
+                        selected={this.state.investmentDate}
                         onChange={this.handleInvestmentDate}
                     />
                     <label htmlFor='current-date'>
                         Informe a data de consulta:
                     </label>
-                    <input
+                    <DatePicker
                         id='current-date'
-                        type='text'
+                        locale='pt'
+                        dateFormat='dd/MM/yyyy'
+                        selected={this.state.currentDate}
                         onChange={this.handleCurrentDate}
                     />
                 </div>
+                <button onClick={this.calculatePerformance}>Calcular</button>
             </div>
         );
     }

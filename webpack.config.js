@@ -3,7 +3,7 @@ const ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
     mode: ENV,
-    entry: './src/frontend/index.js',
+    entry: ['babel-polyfill', './src/frontend/index.js'],
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -21,6 +21,10 @@ module.exports = {
                         cacheDirectory: true,
                     },
                 },
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
             },
         ],
     },
