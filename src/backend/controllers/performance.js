@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
         res.status(200).send(data);
     } catch (e) {
         res.status(404).send({
-            error: true,
+            error_detail: `${e}`,
             message: 'Could not retrieve performance data',
         });
     }
