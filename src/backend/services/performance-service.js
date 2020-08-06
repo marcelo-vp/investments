@@ -8,12 +8,9 @@ import {
     formatResponseDate,
 } from '../common/helpers';
 
-const DATA_URL =
-    'https://gorila-blog.s3-us-west-2.amazonaws.com/CDI_Prices.csv';
-
 class PerformanceService {
     constructor() {
-        this._data_url = DATA_URL;
+        this._data_url = process.env.DATA_URL;
         this._historical_data = null;
     }
 
