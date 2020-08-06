@@ -1,8 +1,11 @@
+import controllers from './controllers';
+
 const express = require('express');
 const app = express();
 const PORT = 3000;
 
 app.use(express.static('dist'));
+app.use('/investment', controllers);
 
 app.get('/', (req, res) => {
     res.render('index');
