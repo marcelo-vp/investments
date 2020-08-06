@@ -1,11 +1,13 @@
 const path = require('path');
+const ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
-    mode: 'development',
+    mode: ENV,
     entry: './src/frontend/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
     },
     module: {
         rules: [

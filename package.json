@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server --open",
+    "dev": "NODE_ENV=development node ./src/backend",
     "start": "node ./src/backend",
     "lint": "node_modules/eslint/bin/eslint.js",
     "test": "add later"
@@ -31,7 +31,7 @@
     "prettier": "2.0.5",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-middleware": "^3.7.2"
   },
   "husky": {
     "hooks": {
