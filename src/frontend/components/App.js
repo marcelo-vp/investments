@@ -1,7 +1,8 @@
 import pt from 'date-fns/locale/pt-BR';
 import moment from 'moment';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
+import DataChart from './DataChart';
 import Api from '../libs/Api';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -44,12 +45,21 @@ class App extends Component {
         const response = await Api.match('/performance', payload);
 
         if (!response.data.error_detail) {
-            this.setState({ records: response.data });
+            this.setState({ records: response.data.reverse() });
         }
+    };
+    formatChartData = (records) => {
+        const factor = this.state.multiplyingFactor;
+
+        records.forEach((record) => {
+            record.unitPrice = factor * record.unitPrice;
+        });
+
+        return records;
     };
     render() {
         return (
-            <div>
+            <Fragment>
                 <h1>Consulte a evolução do seu CDB</h1>
                 <div className='values'>
                     <label htmlFor='initial-amount'>
@@ -92,7 +102,10 @@ class App extends Component {
                     />
                 </div>
                 <button onClick={this.calculatePerformance}>Calcular</button>
-            </div>
+                <DataChart
+                    data={this.formatChartData([...this.state.records])}
+                />
+            </Fragment>
         );
     }
 }
