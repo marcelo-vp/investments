@@ -1,7 +1,7 @@
-import express from 'express';
-import performanceRouter from './performance';
+const express = require('express');
+const performanceRouter = require('./performance');
 
 const controllers = express.Router();
 controllers.use('/performance', performanceRouter);
 
-export default controllers;
+module.exports = controllers;

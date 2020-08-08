@@ -1,12 +1,5 @@
-import axios from 'axios';
-import {
-    getDailyRate,
-    updateCompoundFactor,
-    getUnitPrice,
-    parsePayloadDate,
-    parseRecordDate,
-    formatResponseDate,
-} from '../common/helpers';
+const axios = require('axios');
+const helpers = require('../common/helpers');
 
 class PerformanceService {
     constructor() {
@@ -16,14 +9,14 @@ class PerformanceService {
 
     _getDateRange(payload) {
         return {
-            start: parsePayloadDate(payload.investmentDate),
-            end: parsePayloadDate(payload.currentDate),
+            start: helpers.parsePayloadDate(payload.investmentDate),
+            end: helpers.parsePayloadDate(payload.currentDate),
         };
     }
 
     _isDateInsideRange(record, dateRange) {
         let isInside = false;
-        const date = parseRecordDate(record.date);
+        const date = helpers.parseRecordDate(record.date);
 
         if (date.diff(dateRange.start) >= 0 && date.diff(dateRange.end) <= 0) {
             isInside = true;
@@ -43,18 +36,18 @@ class PerformanceService {
             const record = dailyRecords[index];
 
             if (this._isDateInsideRange(record, dateRange)) {
-                const dailyRate = getDailyRate(record.nominalRate);
+                const dailyRate = helpers.getDailyRate(record.nominalRate);
                 const isLastRecord = remaining - 1 == 0;
 
-                compoundFactor = updateCompoundFactor(
+                compoundFactor = helpers.updateCompoundFactor(
                     compoundFactor,
                     dailyRate,
                     payload.cdbRate,
                     isLastRecord
                 );
                 responseData.unshift({
-                    date: formatResponseDate(record.date),
-                    unitPrice: getUnitPrice(compoundFactor),
+                    date: helpers.formatResponseDate(record.date),
+                    unitPrice: helpers.getUnitPrice(compoundFactor),
                 });
             }
 
@@ -90,4 +83,4 @@ class PerformanceService {
     }
 }
 
-export default PerformanceService;
+module.exports = PerformanceService;

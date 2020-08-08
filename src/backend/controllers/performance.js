@@ -1,5 +1,5 @@
-import express from 'express';
-import PerformanceService from '../services/performance-service';
+const express = require('express');
+const PerformanceService = require('../services/performance-service');
 
 const router = express.Router();
 const service = new PerformanceService();
@@ -16,4 +16,4 @@ router.post('/', async (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;

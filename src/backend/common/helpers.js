@@ -1,4 +1,4 @@
-import moment from 'moment';
+const moment = require('moment');
 
 const RECORD_DATE_FMT = 'DD/MM/YYYY';
 const APP_DATE_FMT = 'YYYY-MM-DD';
@@ -31,7 +31,7 @@ const formatResponseDate = (dateStr) => {
     return moment(dateStr, RECORD_DATE_FMT).format(APP_DATE_FMT);
 };
 
-export {
+module.exports = {
     getDailyRate,
     updateCompoundFactor,
     getUnitPrice,
