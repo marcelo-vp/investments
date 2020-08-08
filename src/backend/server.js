@@ -2,7 +2,7 @@ const controllers = require('./controllers');
 const express = require('express');
 const app = express();
 const isProduction = process.env.NODE_ENV == 'production';
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static('dist'));
 app.use(express.json());
