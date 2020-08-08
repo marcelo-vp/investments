@@ -1,7 +1,8 @@
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ENV = process.env.NODE_ENV || 'development';
 
-module.exports = {
+const config = {
     mode: ENV,
     entry: ['babel-polyfill', './src/frontend/index.js'],
     output: {
@@ -33,3 +34,11 @@ module.exports = {
         contentBase: './dist',
     },
 };
+
+if (ENV == 'production') {
+    config.optimization = {
+        minimizer: [new UglifyJsPlugin()],
+    };
+}
+
+module.exports = config;
