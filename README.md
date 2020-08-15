@@ -10,7 +10,7 @@ npm install
 ```
 npm run dev
 ```
-*It starts an express server with a webpack dev middleware. Hot module replacement is not implemented in this release.*
+*It starts an express server with a webpack development middleware. Hot module replacement is not implemented.*
 
 The server will be listening for requests at `http://localhost:3000/`
 
@@ -19,3 +19,8 @@ To run the app in production mode, in order to analyze the JS bundle size, respo
 ```
 npm run build && npm start
 ```
+
+## To Do
+- add CSS to components
+- get historic data when component mounts
+- add tests
