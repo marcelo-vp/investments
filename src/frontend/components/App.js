@@ -1,12 +1,9 @@
-import pt from 'date-fns/locale/pt-BR';
 import moment from 'moment';
 import React, { Component, Fragment } from 'react';
-import DatePicker, { registerLocale } from 'react-datepicker';
 import DataChart from './DataChart';
+import DateInput from './DateInput';
+import NumberInput from './NumberInput';
 import Api from '../libs/Api';
-import 'react-datepicker/dist/react-datepicker.css';
-
-registerLocale('pt', pt);
 
 class App extends Component {
     constructor(props) {
@@ -62,43 +59,29 @@ class App extends Component {
             <Fragment>
                 <h1>Consulte a evolução do seu CDB</h1>
                 <div className='values'>
-                    <label htmlFor='initial-amount'>
-                        Insira o valor inicial investido (R$):
-                    </label>
-                    <input
-                        id='initial-amount'
-                        type='number'
-                        onChange={this.handleMultiplyingFactor}
+                    <NumberInput
+                        inputId='initial-amount'
+                        inputLabel='Insira o valor inicial investido (R$):'
+                        onValueChange={this.handleMultiplyingFactor}
                     />
-                    <label htmlFor='rate-amount'>
-                        Insira a taxa do CDB contratada (%):
-                    </label>
-                    <input
-                        id='rate-amount'
-                        type='number'
-                        onChange={this.handleCdbRate}
+                    <NumberInput
+                        inputId='rate-amount'
+                        inputLabel='Insira a taxa do CDB contratada (%):'
+                        onValueChange={this.handleCdbRate}
                     />
                 </div>
                 <div className='dates'>
-                    <label htmlFor='investment-date'>
-                        Informe a data de investimento:
-                    </label>
-                    <DatePicker
-                        id='investment-date'
-                        locale='pt'
-                        dateFormat='dd/MM/yyyy'
-                        selected={this.state.investmentDate}
-                        onChange={this.handleInvestmentDate}
+                    <DateInput
+                        inputId='investment-date'
+                        inputLabel='Informe a data de investimento:'
+                        selectedDate={this.state.investmentDate}
+                        handleChange={this.handleInvestmentDate}
                     />
-                    <label htmlFor='current-date'>
-                        Informe a data de consulta:
-                    </label>
-                    <DatePicker
-                        id='current-date'
-                        locale='pt'
-                        dateFormat='dd/MM/yyyy'
-                        selected={this.state.currentDate}
-                        onChange={this.handleCurrentDate}
+                    <DateInput
+                        inputId='current-date'
+                        inputLabel='Informe a data de consulta:'
+                        selectedDate={this.state.currentDate}
+                        handleChange={this.handleCurrentDate}
                     />
                 </div>
                 <button onClick={this.calculatePerformance}>Calcular</button>
