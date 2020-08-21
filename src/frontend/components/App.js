@@ -61,6 +61,7 @@ class App extends Component {
             margin: '0 auto',
             boxSizing: 'border-box',
             width: '100%',
+            maxWidth: 1600,
             padding: '20px 5%',
             textAlign: 'left',
             fontFamily: 'Roboto, Arial, Verdana',
@@ -68,7 +69,6 @@ class App extends Component {
             fontWeight: 400,
             color: '#212121',
             '@media(min-width: 769px)': {
-                width: '80%',
                 paddingLeft: '10%',
                 paddingRight: '10%',
             },
