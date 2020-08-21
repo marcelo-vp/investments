@@ -21,5 +21,4 @@ npm run build && npm start
 ```
 
 ## To Do
-- get historic data when component mounts
 - add tests

@@ -69,7 +69,7 @@ class PerformanceService {
         return parsedData;
     }
 
-    async _getHistoricalData() {
+    async getHistoricalData() {
         if (!this._historical_data) {
             const response = await axios.get(this._data_url);
             this._historical_data = this._parseFromCsv(response.data);
@@ -78,7 +78,7 @@ class PerformanceService {
     }
 
     async getPerformanceHistory(payload) {
-        const dailyRecords = await this._getHistoricalData();
+        const dailyRecords = await this.getHistoricalData();
         return this._buildResponseData(dailyRecords, payload);
     }
 }

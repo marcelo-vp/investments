@@ -16,6 +16,9 @@ class App extends Component {
             records: [],
         };
     }
+    async componentDidMount() {
+        await Api.load('/performance');
+    }
     handleMultiplyingFactor = (e) => {
         const factor = parseFloat(e.target.value) / this._unit_value;
         this.setState({ multiplyingFactor: factor });

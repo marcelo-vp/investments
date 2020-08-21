@@ -19,6 +19,10 @@ class Api {
         return this._http_client;
     }
 
+    async load(url) {
+        return await this._get_http_client().get(url);
+    }
+
     async match(url, data) {
         return await this._get_http_client().post(url, data);
     }
