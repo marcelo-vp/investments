@@ -40,9 +40,9 @@ const DataChart = (props) => {
                     dx={-6}
                     dy={-4}
                 />
-                <Tooltip formatter={formatNumber} />
                 <CartesianGrid vertical={false} />
                 <Line dataKey='unitPrice' stroke='#216ba5' dot={false} />
+                <Tooltip formatter={formatNumber} />
             </LineChart>
         </Fragment>
     );
