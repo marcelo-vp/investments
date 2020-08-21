@@ -65,6 +65,7 @@ class App extends Component {
             textAlign: 'left',
             fontFamily: 'Roboto, Arial, Verdana',
             fontSize: 16,
+            fontWeight: 400,
             color: '#212121',
             '@media(min-width: 769px)': {
                 width: '80%',
@@ -74,6 +75,7 @@ class App extends Component {
         });
         const headerStyle = css({
             fontSize: 32,
+            fontWeight: 500,
             marginBottom: 32,
         });
         const buttonStyle = css({
@@ -83,8 +85,7 @@ class App extends Component {
             padding: '10px 16px',
             backgroundColor: '#216ba5',
             color: '#fff',
-            fontSize: '16px',
-            fontWeight: 'bold',
+            font: '500 18px Roboto',
             textTransform: 'uppercase',
             cursor: 'pointer',
             boxShadow: '2px 2px 4px rgba(33, 33, 33, 0.5)',
