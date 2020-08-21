@@ -21,6 +21,5 @@ npm run build && npm start
 ```
 
 ## To Do
-- add CSS to components
 - get historic data when component mounts
 - add tests
