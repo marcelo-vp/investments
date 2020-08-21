@@ -1,5 +1,6 @@
 import moment from 'moment';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { css } from 'glamor';
 import DataChart from './DataChart';
 import DateInput from './DateInput';
 import NumberInput from './NumberInput';
@@ -55,40 +56,73 @@ class App extends Component {
         return records;
     };
     render() {
+        const containerStyle = css({
+            display: 'block',
+            boxSizing: 'border-box',
+            width: '100%',
+            padding: '20px 5%',
+            textAlign: 'left',
+            fontFamily: 'Roboto, Arial, Verdana',
+            fontSize: 16,
+            color: '#212121',
+            '@media(min-width: 769px)': {
+                width: '80%',
+                paddingLeft: '10%',
+                paddingRight: '10%',
+            },
+        });
+        const headerStyle = css({
+            fontSize: 32,
+            marginBottom: 32,
+        });
+        const buttonStyle = css({
+            margin: '16px 0',
+            border: 'none',
+            borderRadius: 4,
+            padding: '10px 16px',
+            backgroundColor: '#216ba5',
+            color: '#fff',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            boxShadow: '2px 2px 4px rgba(33, 33, 33, 0.5)',
+        });
+
         return (
-            <Fragment>
-                <h1>Consulte a evolução do seu CDB</h1>
-                <div className='values'>
-                    <NumberInput
-                        inputId='initial-amount'
-                        inputLabel='Insira o valor inicial investido (R$):'
-                        onValueChange={this.handleMultiplyingFactor}
-                    />
-                    <NumberInput
-                        inputId='rate-amount'
-                        inputLabel='Insira a taxa do CDB contratada (%):'
-                        onValueChange={this.handleCdbRate}
-                    />
-                </div>
-                <div className='dates'>
-                    <DateInput
-                        inputId='investment-date'
-                        inputLabel='Informe a data de investimento:'
-                        selectedDate={this.state.investmentDate}
-                        handleChange={this.handleInvestmentDate}
-                    />
-                    <DateInput
-                        inputId='current-date'
-                        inputLabel='Informe a data de consulta:'
-                        selectedDate={this.state.currentDate}
-                        handleChange={this.handleCurrentDate}
-                    />
-                </div>
-                <button onClick={this.calculatePerformance}>Calcular</button>
+            <div {...containerStyle}>
+                <h1 {...headerStyle}>Consulte a evolução do seu CDB</h1>
+                <NumberInput
+                    inputId='initial-amount'
+                    inputLabel='Insira o valor inicial investido (R$):'
+                    width={180}
+                    onValueChange={this.handleMultiplyingFactor}
+                />
+                <NumberInput
+                    inputId='rate-amount'
+                    inputLabel='Insira a taxa do CDB contratada (%):'
+                    width={80}
+                    onValueChange={this.handleCdbRate}
+                />
+                <DateInput
+                    inputId='investment-date'
+                    inputLabel='Informe a data de investimento:'
+                    selectedDate={this.state.investmentDate}
+                    handleChange={this.handleInvestmentDate}
+                />
+                <DateInput
+                    inputId='current-date'
+                    inputLabel='Informe a data de consulta:'
+                    selectedDate={this.state.currentDate}
+                    handleChange={this.handleCurrentDate}
+                />
+                <button {...buttonStyle} onClick={this.calculatePerformance}>
+                    Calcular
+                </button>
                 <DataChart
                     data={this.formatChartData([...this.state.records])}
                 />
-            </Fragment>
+            </div>
         );
     }
 }
