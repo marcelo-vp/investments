@@ -58,6 +58,7 @@ class App extends Component {
     render() {
         const containerStyle = css({
             display: 'block',
+            margin: '0 auto',
             boxSizing: 'border-box',
             width: '100%',
             padding: '20px 5%',
