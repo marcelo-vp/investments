@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 import { css } from 'glamor';
 import DataChart from './DataChart';
 import DateInput from './DateInput';
@@ -14,11 +15,22 @@ class App extends Component {
             currentDate: new Date(),
             investmentDate: new Date(),
             records: [],
+            calculateBtnBgColor: '#216ba5',
         };
     }
     async componentDidMount() {
+        if (!this.socket) {
+            this.socket = io.connect(window.location.href);
+            this.socket.on(
+                'event://update-button-bg-color',
+                this.handleButtonColorUpdate
+            );
+        }
         await Api.load('/performance');
     }
+    handleButtonColorUpdate = (msg) => {
+        this.setState({ calculateBtnBgColor: JSON.parse(msg).color });
+    };
     handleMultiplyingFactor = (e) => {
         const factor = parseFloat(e.target.value) / this._unit_value;
         this.setState({ multiplyingFactor: factor });
@@ -43,6 +55,10 @@ class App extends Component {
             cdbRate: this.state.cdbRate,
             currentDate: this._formatPayloadDate(this.state.currentDate),
         };
+        this.socket.emit(
+            'event://calculate-performance',
+            JSON.stringify(payload)
+        );
         const response = await Api.match('/performance', payload);
 
         if (!response.data.error_detail) {
@@ -86,7 +102,7 @@ class App extends Component {
             border: 'none',
             borderRadius: 4,
             padding: '10px 16px',
-            backgroundColor: '#216ba5',
+            backgroundColor: this.state.calculateBtnBgColor,
             color: '#fff',
             font: '500 18px Roboto',
             textTransform: 'uppercase',
