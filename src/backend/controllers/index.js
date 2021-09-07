@@ -1,7 +1,8 @@
-const express = require('express');
-const performanceRouter = require('./performance');
+const router = require('express').Router();
+const performanceController = require('./performance');
+const serviceController = require('./services');
 
-const controllers = express.Router();
-controllers.use('/performance', performanceRouter);
+router.use('/performance', performanceController);
+router.use('/service-list', serviceController);
 
-module.exports = controllers;
+module.exports = router;
